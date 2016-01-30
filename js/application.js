@@ -57,20 +57,26 @@ var Sports = React.createClass({
       </div>
       )
   },
-  // TBU
+  // The following logic fires when one of the sports is clicked
+  // Notice that it uses the variable "i" that we assigned as a key above for each <li>
+  //We pass in just the blurb to keep it as precise as possible
   handleClick: function(i) {
-    // console.log('You clicked: ' + this.props.sports[i].name)
     this.refs.blurb_div.setState({blurb: this.props.sports[i].blurb})
   }
 })
 
+
 var Blurb = React.createClass({
+  // Since the blurb will be updated onClick, we give it a state
+  // We use state, because props are "immutable", but state can change
+  // The initial state is the blurb we passed in above
   getInitialState : function() {
     return {
       blurb: this.props.blurb
     };
   },
-
+  // Here, we use this.state.blurb instead of this.props.blurb
+  // If we used this.props.blurb, we wouldn't be able to update it
   render: function() {
     return(
       <div>
