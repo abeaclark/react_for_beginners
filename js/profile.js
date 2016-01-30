@@ -3,12 +3,16 @@
 var user = {
   "first_name": "Abe",
   "last_name": "Clark",
+  "age": 18,
   "profile_picture_url": "https://media.licdn.com/mpr/mpr/shrinknp_200_200/p/6/005/096/07c/1427c21.jpg",
   "blurb": "I am Abe and I love this App.",
   "sports": [
       {"name": "Wrestling", "blurb": "I love Wrestling"},
       {"name": "Baseball", "blurb": "Baseball is life"},
       {"name": "Running", "blurb": "Run or DIEEEEEEE"},
+      {"name": "Snorkeling", "blurb": "I can swim"},
+      {"name": "Tag", "blurb": "I want to play tag with Greg"},
+      {"name": "Eating", "blurb": "Nom Nom Nom"},
     ]
   }
 
@@ -28,9 +32,14 @@ var user = {
 var Profile = React.createClass({
   render: function() {
     return(
-      <div>
-        <p>Hello, this is {this.props.user.first_name}</p>
-        <img src={this.props.user.profile_picture_url} alt="Profile Picture" />
+      <div class="row">
+        <img className="profile_picture" src={this.props.user.profile_picture_url} alt="Profile Picture" />
+        <div className="profile_headline">
+          <h1 className="pull-left">{this.props.user.first_name}</h1>
+          <h1 className="pull-right">{this.props.user.age}</h1>
+        </div>
+        <div class="clearfix"></div>
+        <hr />
         <Sports sports={user.sports} />
       </div>
       )
@@ -52,14 +61,16 @@ var Sports = React.createClass({
   render: function() {
     return(
       <div>
-        <ul>{this.props.sports.map(function(sport, i) {
+        <ul>
+        {this.props.sports.map(function(sport, i) {
             return (
-              <li key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
+              <li type="button" className="btn btn-info profile_sports" key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
               );
             }, this)}
         </ul>
-        <p>Description</p>
+        <hr />
         <Blurb ref="blurb_div" blurb={user.blurb} />
+        <hr />
       </div>
       )
   },

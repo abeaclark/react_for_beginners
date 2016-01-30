@@ -1,5 +1,38 @@
-.container {
+
+
+.profile_picture {
   width: 100%;
-  max-width: 900px;
-  background-color: gray;
+}
+
+.left-align {
+  text-align: left;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.profile_sports {
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+
+.clearfix {
+  clear:both;
+}
+
+.profile_headline {
+  height: 50px;
+}
+
+/*SORT PAGE*/
+.input {
+  width: 90%;
+  max-width: 500px;
+}
+
+.sport_options {
+  width: 90%;
+  max-width: 500px;
 }

@@ -43,9 +43,9 @@ var MainContainer = React.createClass({
     var value = event.target.value;
     this.refs.sports_list.setState({sports: find_sport(value, sports_array)});
   },
-  setMySports: function(index) {
+  setMySports: function(sport) {
     var sportToAdd, currentSports
-    sportToAdd = sports_array[index]
+    sportToAdd = sport
     console.log(sportToAdd)
     currentSports = this.state.mySports.slice()
     currentSports.push(sportToAdd)
@@ -58,8 +58,9 @@ var MainContainer = React.createClass({
     return(
       <div>
         <ChosenSports mySports={this.state.mySports} ref="mySports"/>
-        <h4>Add a sport</h4>
-        <input type="text" ref="search" placeholder="Search for your sport" value={this.state.value} onChange={this.handleChange} />
+        <h4>Add an activity</h4>
+        <hr />
+        <input className="input" type="text" ref="search" placeholder="Search for your sport" value={this.state.value} onChange={this.handleChange} />
         <SportsOptions sports={sports_array} ref="sports_list" onChange={this.setMySports}/>
       </div>
       )
@@ -68,14 +69,14 @@ var MainContainer = React.createClass({
 
 var SportsOptions = React.createClass({
   getInitialState: function() {
-      return { sports: this.props.sports};
+      return { sports: []};
     },
   render: function() {
       if(this.state.sports.length) {
       return(
           <ul>{this.state.sports.map(function(sport, i) {
               return (
-                <li key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
+                <li type="button" className="btn btn-info sport_options" key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
                 );
               }, this)}
           </ul>
@@ -83,7 +84,7 @@ var SportsOptions = React.createClass({
     } else { return null };
   },
   handleClick: function(i) {
-    this.props.onChange(i);
+    this.props.onChange(this.state.sports[i]);
   }
 });
 
@@ -95,13 +96,14 @@ var ChosenSports = React.createClass({
       if(this.props.mySports.length) {
       return(
         <div>
-          <h4>My sports</h4>
+          <h4>My Activities</h4>
           <ul>{this.props.mySports.map(function(sport, i) {
               return (
-                <li key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
+                <li className="btn btn-success sport_options" key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
                 );
               }, this)}
           </ul>
+        <hr />
         </div>
        )
     } else { return null };
