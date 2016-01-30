@@ -13,18 +13,21 @@ var sports_array = [
       {"name": "Climbing"},
       ]
 
-var regex = function(wordToMatch, array_to_query) {
-  var regular_expression = new RegExp("#" + wordToMatch + "#", "g")
-  for ( var i = 0; i < array_to_query.length; i++ )
+var find_sport = function(wordToMatch, array_of_objects_to_query) {
+  var regular_expression = new RegExp(wordToMatch)
+  console.log('regular_expression:' + regular_expression)
+  var results = []
+  for ( var i = 0; i < array_of_objects_to_query.length; i++ )
     {
-      var result
-      if ( regular_expression.test(array_to_query[i]) ) {
-            result[j] = array_to_query[i]
-            j++
+      if ( regular_expression.test(array_of_objects_to_query[i].name) ) {
+            console.log(array_of_objects_to_query)
+            results.push(array_of_objects_to_query[i])
          }
-      return result
     }
+  return results
 }
+
+console.log(find_sport('a', [{name: 'aasf'},{name: 'bsa'},{name: 'c'}]))
 
 var SearchBar = React.createClass({
   getInitialState: function() {
@@ -32,8 +35,10 @@ var SearchBar = React.createClass({
   },
   handleChange: function(event) {
     this.setState({value: event.target.value});
-    var value = this.state.value
-    this.refs.sportsoptions.setState({sports: regex(value, sports_array)});
+    var value = event.target.value;
+    console.log("Found sports: " + find_sport(value, sports_array));
+    this.refs.sports_list.setState({sports: find_sport(value, sports_array)});
+    console.log(sports_array);
   },
   render: function() {
     return(
@@ -53,16 +58,16 @@ var SportsOptions = React.createClass({
       return { sports: this.props.sports };
     },
   render: function() {
-    if (sports.length) {
+      if(this.state.sports.length) {
       return(
-        <ul>{this.state.sports.map(function(sport, i) {
-            return (
-              <li key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
-              );
-            }, this)}
-        </ul>
-        )
-      };
+          <ul>{this.state.sports.map(function(sport, i) {
+              return (
+                <li key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
+                );
+              }, this)}
+          </ul>
+       )
+    } else { return null };
   },
   handleClick: function(i) {
     // TBU - should add an element to the keep div
