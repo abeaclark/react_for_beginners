@@ -27,7 +27,8 @@ var Profile = React.createClass({
         // the ".props.user" references the user we passed in during the React.DOM.render function
         <p>Hello, this is {this.props.user.first_name}</p>
         <img src={this.props.user.profile_picture_url} alt="Profile Picture" />
-        // the ".props.user" references the user we passed in during the React.DOM.render function
+        // We could pass the entire user, but best practice is to limit scope as much as you can
+        // The array of sports will be used inside the Sports class below
         <Sports sports={user.sports} />
       </div>
       )
@@ -38,18 +39,25 @@ var Sports = React.createClass({
   render: function() {
     return(
       <div>
+      // Here we grab the sports array and iterate over it using .map
+      // I believe the first argument is similare to the "|thing|" in an .each statement
+      // the second argument seems to be an index
         <ul>{this.props.sports.map(function(sport, i) {
             return (
+              // It is best practice to assign a key of an index to items generated through iteration
+              // that is what we do with key={i}
+              // The onClick references the function "handleClick" that we define later in this object
               <li key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
               );
             }, this)}
         </ul>
         <p>Description</p>
+        // Here we call the Blurb class and pass it the user's biography
         <Blurb ref="blurb_div" blurb={user.blurb} />
       </div>
       )
   },
-
+  // TBU
   handleClick: function(i) {
     // console.log('You clicked: ' + this.props.sports[i].name)
     this.refs.blurb_div.setState({blurb: this.props.sports[i].blurb})
