@@ -20,39 +20,45 @@ var user = {
 // The function that iniatiates everything is the React.DOM.render function
 // at the bottom of the page. Go there now to see what's going on.
 
+// Explanation of Profile class:
+// the ".props.user" references the user we passed in during the React.DOM.render function
+// We could pass the entire user, but best practice is to limit scope as much as you can
+// The array of sports will be used inside the Sports class below
+
 var Profile = React.createClass({
   render: function() {
     return(
       <div>
-        // the ".props.user" references the user we passed in during the React.DOM.render function
         <p>Hello, this is {this.props.user.first_name}</p>
         <img src={this.props.user.profile_picture_url} alt="Profile Picture" />
-        // We could pass the entire user, but best practice is to limit scope as much as you can
-        // The array of sports will be used inside the Sports class below
         <Sports sports={user.sports} />
       </div>
       )
   }
 })
 
+// Explanation of Sports class:
+// We grab the sports array and iterate over it using .map
+// I believe the first argument is similar to the "|thing|" in an .each statement
+// the second argument seems to be an index
+
+// It is best practice to assign a key of an index to items generated through iteration
+// that is what we do with key={i}
+// This allows you to reference them later
+// The onClick references the function "handleClick" that we define later in this object
+
+// We call the Blurb class and pass it the user's biography
 var Sports = React.createClass({
   render: function() {
     return(
       <div>
-      // Here we grab the sports array and iterate over it using .map
-      // I believe the first argument is similare to the "|thing|" in an .each statement
-      // the second argument seems to be an index
         <ul>{this.props.sports.map(function(sport, i) {
             return (
-              // It is best practice to assign a key of an index to items generated through iteration
-              // that is what we do with key={i}
-              // The onClick references the function "handleClick" that we define later in this object
               <li key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
               );
             }, this)}
         </ul>
         <p>Description</p>
-        // Here we call the Blurb class and pass it the user's biography
         <Blurb ref="blurb_div" blurb={user.blurb} />
       </div>
       )
@@ -88,8 +94,8 @@ var Blurb = React.createClass({
 
 // This function appends the "Profile" component to the #main element
 // of the existing HTML page
+// This passes in user as a "prop" (the user in brackets references the object I define at the top)
 ReactDOM.render(
-  // This passes in user as a "prop" (the user in brackets references the object I define at the top)
   <Profile user={user} />,
   document.getElementById('main')
   );
