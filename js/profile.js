@@ -16,6 +16,21 @@ var user = {
     ]
   }
 
+// // Will replace the current data model when server is live
+//   loadMessagesFromServer: function() {
+//     $.ajax({
+//       url: this.props.url,
+//       dataType: 'json',
+//       cache: false,
+//       success: function(data) {
+//         this.setState({user: data['user']});
+//       }.bind(this),
+//       error: function(xhr, status, error) {
+//         console.error(this.props.url, status, error.toString());
+//       }.bind(this)
+//     });
+
+
 // Components are nested. Best practice is to pass the least amount of data
 // you can to each successive layer
 // The componenets here are layed out as follows
@@ -107,6 +122,6 @@ var Blurb = React.createClass({
 // of the existing HTML page
 // This passes in user as a "prop" (the user in brackets references the object I define at the top)
 ReactDOM.render(
-  <Profile user={user} />,
+  <Profile user={user} url="TBU"/>,
   document.getElementById('main')
   );

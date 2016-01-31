@@ -13,6 +13,20 @@ var sports_array = [
       {"name": "Climbing"},
       ]
 
+// // Will replace the current data model when server is live
+//   loadMessagesFromServer: function() {
+//     $.ajax({
+//       url: this.props.url,
+//       dataType: 'json',
+//       cache: false,
+//       success: function(data) {
+//         this.setState({user: data['user']});
+//       }.bind(this),
+//       error: function(xhr, status, error) {
+//         console.error(this.props.url, status, error.toString());
+//       }.bind(this)
+//     });
+
 
 // Organization:
 // find_sport -- helper function to perform regex search
@@ -97,7 +111,10 @@ var ChosenSports = React.createClass({
       if(this.props.mySports.length) {
       return(
         <div>
-          <h4>My Activities</h4>
+          <div>
+          <h4 className="pull-left">My Activities</h4>
+          <a href="#"><span className="btn btn-warning pull-right">Next</span></a>
+          </div>
           <ul>{this.props.mySports.map(function(sport, i) {
               return (
                 <li className="btn btn-success sport_options" key={i} onClick={this.handleClick.bind(this, i)}>{sport.name}</li>
@@ -118,6 +135,6 @@ var ChosenSports = React.createClass({
 
 
 ReactDOM.render(
-  <MainContainer sports={sports_array} />,
+  <MainContainer sports={sports_array} url={'TBU'}/>,
   document.getElementById('main')
   );
