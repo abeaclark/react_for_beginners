@@ -43,15 +43,16 @@ var MainContainer = React.createClass({
     var value = event.target.value;
     this.refs.sports_list.setState({sports: find_sport(value, sports_array)});
   },
-  setMySports: function(sport) {
+  setMySports: function(sportToAdd) {
+  currentSports = this.state.mySports.slice()
+   if (currentSports.indexOf(sportToAdd) > -1) {
+    return
+    } else {
     var sportToAdd, currentSports
-    sportToAdd = sport
-    console.log(sportToAdd)
-    currentSports = this.state.mySports.slice()
+
     currentSports.push(sportToAdd)
-    console.log(currentSports)
     this.setState({mySports: currentSports})
-    console.log(this.state.mySports)
+    }
     // this.setState({mySports: currentSports.push(sportToAdd)})
   },
   render: function() {
